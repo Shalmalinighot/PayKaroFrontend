@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename package &apos;com.cg.billutility.repositroy&apos; to &apos;com.cg.billutility.repository&apos;&#x0D;&#x0A;- Original project: &apos;bill-utility&apos;&#x0D;&#x0A;- Original element: &apos;bill-utility/src/main/java/com.cg.billutility.repositroy&apos;&#x0D;&#x0A;- Renamed element: &apos;bill-utility/src/main/java/com.cg.billutility.repository&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename package &apos;com.cg.billutility.repositroy&apos;" flags="589830" hierarchical="false" id="org.eclipse.jdt.ui.rename.package" input="/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.cg.billutility.repositroy" name="com.cg.billutility.repository" qualified="false" references="true" stamp="1692251980690" textual="false" version="1.0"/>
+</session>

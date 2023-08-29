@@ -1,0 +1,100 @@
+package com.cg.transaction.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import com.cg.transaction.dao.TransactionDao;
+import com.cg.transaction.dao.UserDao;
+import com.cg.transaction.dao.WalletDao;
+import com.cg.transaction.entity.Transaction;
+import com.cg.transaction.repository.TransactionRepositroy;
+
+@Service
+public class TransactionServiceImpl implements ITransactionService {
+
+	@Autowired
+	private TransactionRepositroy transactionRepositroy;
+
+	@Autowired
+	private RestTemplate restTemplate;
+
+	@Override
+	public String TransferMoney(Transaction transactionDao) {
+
+		int userId = transactionDao.getUserId();
+		int reward=0;
+		double creditAmount =0;
+		Transaction transaction=new Transaction();
+
+		UserDao userDao = restTemplate.getForObject("http://USER-MODULE/user/getuserbyid/" + userId, UserDao.class);
+		WalletDao senderWallet = restTemplate.getForObject(
+				"http://WALLET-MODULE/wallet/getWalletById/" + transactionDao.getSenderWalletId(), WalletDao.class);
+
+		if (userDao == null) 
+		{
+			return "Enter valid User Id ";
+
+		} else if (senderWallet.getUserId() != userId) {
+			return "Enter valid SenderWalletId";
+		} 
+		
+		else {
+
+					WalletDao reciverWallet = restTemplate.getForObject(
+					"http://WALLET-MODULE/wallet/getWalletById/" + transactionDao.getReceiverWalletId(),
+					WalletDao.class);
+
+						  if (reciverWallet == null) {
+							return "Enter Valid Receiver Id";
+							}
+
+							else {
+									double amount = senderWallet.getBalance();
+									if (transactionDao.getAmount() > amount) 
+									{
+									return "You dont have sufficient Balance for transaction";
+									}
+
+									else 
+									{
+					
+										double debitAmount = transactionDao.getAmount();
+										creditAmount = amount - debitAmount;
+											if (debitAmount < 250) {
+											reward=3;
+											creditAmount+=reward;}
+											
+											else if(debitAmount>=250 && debitAmount <1000)
+											{ 
+												reward=10;
+					
+												creditAmount+=reward;
+											}
+											else if(debitAmount>=1000 && debitAmount <1500)
+											{ 
+												reward=12;
+												creditAmount+=reward;
+											}
+											else if(debitAmount>=1500 && debitAmount <2000)
+											{ 
+												reward=15;
+												creditAmount+=reward;
+											}
+											else
+											{
+												reward=20;
+												creditAmount+=reward;
+											}
+				
+									}
+				
+				
+				
+							} 
+
+				} 
+		return null;
+	} 
+
+}

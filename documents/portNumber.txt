@@ -1,0 +1,6 @@
+API-gateway =9000
+BIllUtility=9004
+transaction=9003
+user module=9001
+walletModule=9002
+bank details=9005

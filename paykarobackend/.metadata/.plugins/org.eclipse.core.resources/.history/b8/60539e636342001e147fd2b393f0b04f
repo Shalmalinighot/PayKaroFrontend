@@ -1,0 +1,28 @@
+package com.cg.paykaro.usermicroservice.entity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+
+public class UserTbl {
+
+	 @Id
+	 @GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
+	private  String name;
+	 @Column(length=12)
+	private int contact;
+	private String emailId;
+	private  String password;
+}
